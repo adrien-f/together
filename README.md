@@ -10,6 +10,7 @@ Together has been tested with PostgresSQL but should work with MySQL and SQLite.
 
 Clone the repository, copy `settings_dist.py` to `settings.py` and complete it with your database uri, a secret key and your Youtube API key. And then in a shell:
 
+    pip install -r requirements.txt
     python manage.py assets build
     python manage.py db upgrade
     
