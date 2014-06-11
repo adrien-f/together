@@ -4,7 +4,7 @@ Together is a Angular/Flask based web application for creating, sharing and edit
 
 ## Dependencies
 
-Together has been tested with PostgresSQL but should work with MySQL and SQLite. You will need to have coffee script and less installed to compile the assets.
+Together has been tested with PostgresSQL but should work with MySQL and SQLite. You will need to have coffee script, less and uglify-js installed to compile the assets.
 
 ## Installation
 

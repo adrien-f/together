@@ -7,7 +7,7 @@ assets_env = Environment()
 
 common_css = Bundle(
     '../static/less/*.less',
-    filters='less',
+    filters='less, cssmin',
     output='../public/css/common.css'
 )
 assets_env.register('common_css', common_css)
@@ -24,13 +24,14 @@ common_js = Bundle(
         '../static/bower_components/angular-bootstrap/ui-bootstrap.js',
         '../static/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
     ),
+    filters='uglifyjs',
     output='../public/js/common.js'
 )
 assets_env.register('common_js', common_js)
 
 application_js = Bundle(
     '../static/coffee/*.coffee',
-    filters='coffeescript',
+    filters='coffeescript, uglifyjs',
     output='../public/js/application.js'
 )
 assets_env.register('application_js', application_js)
