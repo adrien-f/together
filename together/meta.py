@@ -48,6 +48,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         current_app.logger.info('New user "{}" registered with email "{}".'.format(user.name, user.email))
+        flash('Registration successful. Please login now.')
         return redirect(url_for('.login'))
     return render_template('register.html', form=form)
 

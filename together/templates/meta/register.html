@@ -73,7 +73,7 @@
                 <div class="form-group {% if form.name.errors %}has-error{% endif %}">
                     <label class="col-sm-3 control-label" for="name">Display name</label>
                     <div class="col-sm-9">
-                        <input class="form-control" type="name" name="name" value="{{ form.name.data }}">
+                        <input class="form-control" type="name" name="name" value="{% if form.name.data %}{{ form.name.data }}{% endif %}">
                         {% if form.name.errors %}
                             {% for error in form.name.errors %}
                                 <span class="help-block">{{ error }}</span>
@@ -84,7 +84,7 @@
                 <div class="form-group {% if form.email.errors %}has-error{% endif %}">
                     <label class="col-sm-3 control-label" for="email">Email</label>
                     <div class="col-sm-9">
-                        <input class="form-control" type="email" name="email" value="{{ form.email.data }}">
+                        <input class="form-control" type="email" name="email" value="{% if form.email.data %}{{ form.email.data }}{% endif %}">
                         {% if form.email.errors %}
                             {% for error in form.email.errors %}
                                 <span class="help-block">{{ error }}</span>
