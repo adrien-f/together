@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" ng-app="TogetherApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Together</title>
+    <meta name="viewport" content="width=device-width">
+
+    {% block js %}
+        {% assets "common_js" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+        {% assets "application_js" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+        {% assets "application_templates" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+    {% endblock %}
+    <script src="http://www.youtube.com/iframe_api"></script>
+    {% block css %}
+        {% assets "common_css" %}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+        <link href='//fonts.googleapis.com/css?family=Open Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+        {% endassets %}
+    {% endblock %}
+
+</head>
+<body class="{% block body_class %}{% endblock %}">
+    {% block body %}
+
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#together-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">
+                    <i class="fa fa-youtube-play"></i> <span class="navbar-brand-text">Together</span>
+                </a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                {% if current_user.is_authenticated() %}
+                    <li><a href="">{{current_user.name}}</a></li>
+                    <li><a href="{{ url_for('meta.logout') }}" target="_self"><i class="fa fa-sign-out"></i> Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('meta.login')}}" target="_self"><i class="fa fa-sign-in"></i> Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="messages-container container" id="alerts-container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for category, message in messages %}
+                    {% if category == 'message' %}
+                        <div class="alert alert-info">
+                    {% else %}
+                        <div class="alert alert-{{ category }}">
+                    {% endif %}
+                        <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    {% raw %}
+    <div class="messages-container container">
+        <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="alert.close()">{{ alert.msg }}</alert>
+    </div>
+    {% endraw %}
+
+    <div class="container" ng-controller="PlayerCtrl">
+        {% include "angular/player.html" %}
+    </div>
+
+    <div class="{% block content_class %}{% endblock content_class %} container" ng-view>
+        {% block content %}{% endblock %}
+    </div>
+    {% endblock %}
+    <script>
+        window.user = {{ user|tojson }}
+    </script>
+</body>
+</html>

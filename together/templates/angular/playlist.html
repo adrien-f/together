@@ -1,0 +1,72 @@
+<div class="row" id="playlist">
+    <div class="col-md-12">
+        <a class="btn btn-peter" href="/"><i class="fa fa-arrow-left"></i> Back to Playlists</a>
+    </div>
+    <div class="col-md-8 playlist-header">
+        <h2><button class="btn btn-nephritis btn-sm"><i class="fa fa-play"></i></button> {{ playlist.name }}</h2>
+        <p class="text-muted">Last updated {{ playlist.last_updated | amDateFormat:'dddd, MMMM Do YYYY, h:mm:ss a' }}</p>
+    </div>
+    <div class="col-md-4 playlist-header">
+        <div class="btn-group pull-right">
+            <button class="btn btn-peter" ng-click="settings()"><i class="fa fa-cog"></i> Edit</button>
+            <button class="btn btn-nephritis"><i class="fa fa-share-square-o"></i> Share</button>
+        </div>
+
+    </div>
+    <div class="col-md-12">
+        <div class="list-group">
+            <div class="list-group-item playlist-item-add">
+                <form ng-submit="searchVideo()">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search youtube or paste URL" ng-model="searchQuery">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-link"><i class="fa fa-search"></i> Search</button>
+                            <a class="btn btn-link" ng-click="closeSearch()"><i class="fa fa-times"></i> Close</a>
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="list-group-item" ng-show="youtubeSearchLoading">
+                <span class="text-muted"><i class="fa fa-spinner fa-spin"></i> Loading search results...</span>
+            </div>
+            <div class="list-group-item" ng-repeat="result in results" ng-show="results.length">
+                <div class="media">
+                    <div class="pull-left">
+                        <img class="media-object" width="64" ng-src="{{ result.snippet.thumbnails.default.url }}" alt=""/>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ result.snippet.title }}</h4>
+                        <button class="btn btn-nephritis btn-xs" ng-click="addVideo(result.id.videoId)"><i class="fa fa-plus"></i> Add to playlist</button>
+                        <a ng-href="https://www.youtube.com/watch?v={{ result.id.videoId }}" class="btn btn-peter btn-xs" target="_blank"><i class="fa fa-external-link"></i> View on Youtube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group-item" ng-show="!results.length && youtubeSearchSuccess">
+                No results for this search.
+            </div>
+            <div class="list-group-item list-group-item-danger" ng-show="youtubeSearchError">
+                There was an issue querying the Youtube API. Please try again in a few.
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="list-group">
+            <div class="list-group-item" ng-repeat="element in playlist.elements">
+                <div class="media">
+                    <div class="pull-left">
+                        <img class="media-object" width="64" ng-src="{{ element.thumbnail }}" alt=""/>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{ element.title }}</h4>
+                        <div class="btn-group">
+                            <button class="btn btn-xs btn-nephritis" ng-click="playVideo(element)"><i class="fa fa-play"></i> Play</button>
+                            <button class="btn btn-xs btn-green-sea" ng-click="queueVideo(element)"><i class="fa fa-plus"></i> Queue</button>
+                            <a ng-href="https://www.youtube.com/watch?v={{ element.youtube_id }}" class="btn btn-peter btn-xs" target="_blank"><i class="fa fa-external-link"></i> View on Youtube</a>
+                            <button class="btn btn-xs btn-alizarin" ng-click="removeVideo(element.id)"><i class="fa fa-times"></i> Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

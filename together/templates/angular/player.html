@@ -1,0 +1,28 @@
+{% raw %}
+<div class="row" ng-hide="!$root.videoPlaylist.length">
+    <div class="col-md-6">
+        <div class="list-group current-playlist">
+            <a class="list-group-item" ng-show="!$root.videoPlaylist.length">Nothing in playlist</a>
+            <a
+                class="list-group-item list-group-borders"
+                ng-class="{active: $root.videoPlaying.youtube_id == element.youtube_id}"
+                ng-repeat="element in $root.videoPlaylist">
+                <i class="fa fa-play" ng-show="$root.videoPlaying.youtube_id == element.youtube_id"></i> {{ element.title }}
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4 col-md-offset-2">
+        <div class="text-center">
+            <div id="ytplayer"></div>
+            <div class="btn-group ytplayer-controls">
+                <button class="btn btn-default" ng-click="prevVideo()"><i class="fa fa-step-backward"></i></button>
+                <button class="btn btn-default" ng-click="pausePlay()"><i class="fa" ng-class="{'fa-pause': $root.playerPlaying, 'fa-play': !$root.playerPlaying}"></i></button>
+                <button class="btn btn-default" ng-click="nextVideo()"><i class="fa fa-step-forward"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <hr/>
+    </div>
+</div>
+{% endraw %}

@@ -1,0 +1,87 @@
+@import "../bower_components/bootstrap/less/bootstrap.less";
+@import "variables";
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.navbar.navbar-default {
+  border-radius: 0;
+  border: 0;
+}
+
+h1, h3, h3, h4, h5, h6 {
+  font-weight: 300 !important;
+}
+
+#playlists {
+  #playlists-header {
+    h2 {
+      margin: 0;
+    }
+    .new-playlist-form {
+      margin-top: 5px;
+    }
+    margin-bottom: 20px;
+  }
+  .playlist {
+    &:hover {
+      .playlist-control {
+        display: block;
+      }
+    }
+    padding: 10px;
+    .playlist-control {
+      display: none;
+    }
+    h4 {
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
+  }
+}
+
+.list-group-item.playlist-item-add {
+  padding: 0;
+  input {
+    border: 0;
+    box-shadow: none;
+    &:focus {
+      box-shadow: none;
+    }
+  }
+  .btn:hover {
+    text-decoration: none;
+  }
+}
+
+#playlist {
+  .playlist-header {
+    margin-top: 20px;
+    small {
+      display: none;
+    }
+    h2 {
+      margin-top: 0;
+    }
+    &:hover {
+      small {
+        display: inline;
+      }
+    }
+  }
+}
+
+
+#ytplayer {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.ytplayer-controls {
+  margin-top: 10px;
+}
+
+.list-group-borders {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}

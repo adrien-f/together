@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" ng-app="TimersApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Timerboard</title>
+    <meta name="viewport" content="width=device-width">
+
+    {% block js %}
+        {% assets "common_js" %}
+            <script type="text/javascript" src="{{ ASSET_URL }}"></script>
+        {% endassets %}
+    {% endblock %}
+
+    {% block css %}
+        {% assets "common_css" %}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+        <link href='//fonts.googleapis.com/css?family=Open Sans:400,300,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="{{ ASSET_URL }}">
+        {% endassets %}
+    {% endblock %}
+
+</head>
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#together-navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">
+                    <i class="fa fa-youtube-play"></i> <span class="navbar-brand-text">Together</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="messages-container container-fluid" id="alerts-container">
+            <div class="row">
+                <div class="col-md-12">
+                    {% for category, message in messages %}
+                    {% if category == 'message' %}
+                        <div class="alert alert-info">
+                    {% else %}
+                        <div class="alert alert-{{ category }}">
+                    {% endif %}
+                        <a class="close" title="Close" href="#" data-dismiss="alert">&times;</a>
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    {% endwith %}
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h1 class="text-center"><i class="fa fa-youtube-play"></i> Together</h1>
+            <p class="text-muted text-center">Welcome to Together! Please register.</p>
+            <hr/>
+            {% if form.errors %}
+                <div class="alert alert-danger">Please correct the following errors:</div>
+            {% endif %}
+            <form class="form-horizontal" method="post" action="{{ url_for('meta.register') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                    <label class="col-sm-3 control-label" for="name">Display name</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="name" name="name" value="{{ form.name.data }}">
+                        {% if form.name.errors %}
+                            {% for error in form.name.errors %}
+                                <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group {% if form.email.errors %}has-error{% endif %}">
+                    <label class="col-sm-3 control-label" for="email">Email</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="email" name="email" value="{{ form.email.data }}">
+                        {% if form.email.errors %}
+                            {% for error in form.email.errors %}
+                                <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                    <label class="col-sm-3 control-label" for="password">Password</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="password" name="password">
+                        {% if form.name.errors %}
+                            {% for error in form.password.errors %}
+                                <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                    <label class="col-sm-3 control-label" for="comfirm_password">Confirm Password</label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="password" name="confirm_password">
+                        {% if form.confirm_password.errors %}
+                            {% for error in form.confirm_password.errors %}
+                                <span class="help-block">{{ error }}</span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group {% if form.name.errors %}has-error{% endif %}">
+                    <div class="col-sm-5 col-sm-offset-3 text-left">
+                        <a href="{{ url_for('meta.login') }}" class="btn btn-link">Have an account? Login now!</a>
+                    </div>
+                    <div class="col-sm-3 col-sm-offset-1">
+                        <button class="btn btn-block btn-nephritis"><i class="fa fa-sign-in"></i> Register</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

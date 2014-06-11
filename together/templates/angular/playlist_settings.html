@@ -1,0 +1,17 @@
+<div class="modal-header">
+    <h3 class="modal-title"><i class="fa fa-cog"></i> Playlist settings</h3>
+</div>
+<form class="form-horizontal" ng-submit="saveSettings()">
+    <div class="modal-body">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="name">Playlist name</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" name="name" ng-model="$parent.playlistName">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default"><i class="fa fa-times"></i> Cancel</button>
+        <button class="btn btn-nephritis" type="submit"><i class="fa fa-save"></i> Save</button>
+    </div>
+</form>
